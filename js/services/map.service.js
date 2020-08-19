@@ -2,15 +2,15 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getLocations
 }
 
+var gLocations=[];
 
-
-var map;
+var map
 
 export function initMap(lat = 29.55805, lng = 34.94821) {
-    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -19,9 +19,42 @@ export function initMap(lat = 29.55805, lng = 34.94821) {
                 center: { lat, lng },
                 zoom: 15
             })
-            console.log('Map!', map);
+
+            var infoWindow = new google.maps.InfoWindow(
+                { content: 'Click the map to get Lat/Lng!', position: {lat,lng} });
+            infoWindow.open(map);
+
+            map.addListener('click', function (mapsMouseEvent) {
+                console.log('click');
+                // Close the current InfoWindow.
+                infoWindow.close();
+
+                // Create a new InfoWindow.
+                let timestemp= Date.now();
+                gLocations.push(createLocation(lat,lng,timestemp));
+                console.log(gLocations);
+                infoWindow = new google.maps.InfoWindow({ position: mapsMouseEvent.latLng });
+                infoWindow.setContent(mapsMouseEvent.latLng.toString());
+                infoWindow.open(map);
+            });
         })
 }
+
+function createLocation(lat,lng,createAte){
+    var location={
+        lat,
+        lng,
+        createAte
+    }
+    return location
+}
+
+
+
+export function getLocations(){
+    return gLocations;
+}
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -34,10 +67,9 @@ function addMarker(loc) {
 
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
-    console.log("panTo -> laLatLng", laLatLng)
-    
     map.panTo(laLatLng);
 }
+
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
@@ -52,6 +84,8 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
+
 
 
 
