@@ -34,8 +34,7 @@ function addMarker(loc) {
 
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
-    console.log("panTo -> laLatLng", laLatLng)
-    
+    console.log("panTo -> laLatLng", laLatLng) 
     map.panTo(laLatLng);
 }
 

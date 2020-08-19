@@ -17,7 +17,6 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-
             console.log('User position is:', pos.coords);
         })
         .catch(err => {
