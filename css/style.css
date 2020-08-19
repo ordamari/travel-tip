@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:0;
+}
+
+header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(227, 255, 190, 0.733);
+    height: 6rem;
+    margin-bottom: 1rem;
+}
+
+header h2{
+    padding-left: 1rem;
+    font-size: 2.5rem;
+    flex-grow: 1;
+}
+
+body{
+    background-color: rgba(221, 220, 220, 0.842);
+}
+
+.map-search{
+    display:flex;
+    flex-grow: 1;
+    justify-content: space-evenly;
+}
+
+.address{
+    font-size: 1.5rem;
+    height: 6rem;
+    padding: 1rem 1rem;
+}
+
+.main-map-cointainer{
+    display: flex;
+    justify-content: space-around;
+    margin: 0 3rem;
+}
+
+.user-info{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.weather{
+    height: 50%;
+    background-color: #fff;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

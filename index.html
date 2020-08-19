@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ES6</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+<header>
+    <h2>Travel-Tip</h2>
+    <div class="map-search">
+        <input class="place" type="text">
+        <button class="search-place">search</button>
+        <button class="btn">my-location</button>
+        <button class="cpy-loc">Copy Location</button>
+    </div>
+</header>
+</header>
+
 <body>
-    <input class="place" type="text">
-    <button class="search-place">search</button>
-    <div id="map" style="width: 40%; height: 400px;"></div>
-    <button class="btn">Click Me</button>
-    
+    <div class="address">address</div>
+    <div class="main-map-cointainer">
+        <div id="map" style="width: 40%; height: 400px;"></div>
+            <div class="user-info">
+        <div class="weather">
+            <div class="temp">temp</div>
+            <div class="cloud-foarcast">rainy</div>
+        </div>
+        <table class="loc-table">
+            <tr>
+                <th>location</th>
+                <th>coordinates</th>
+                <th>Clicked-Time</th>
+                <th>go back</th>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+
     <script src="lib/axios.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>
