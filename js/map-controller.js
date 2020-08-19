@@ -1,3 +1,5 @@
+
+
 var gLocations=[]
 if(loadFromStorage(keyLocations)) gLocations=loadFromStorage(keyLocations);
 
@@ -33,4 +35,8 @@ function removeLocationByIdx(locationIdx){
     gLocations.splice(locationIdx,1);
     saveToStorage(keyLocations,gLocations);
     renderLocations();
+}
+
+export function addClickEvents(){
+    document.querySelector('.search-place').addEventListener('click',onGetPlace)
 }

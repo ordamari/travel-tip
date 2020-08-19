@@ -3,7 +3,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getLocations
+    getLocations,
+    getGeocode
 }
 
 var gLocations=[];
@@ -82,6 +83,14 @@ function _connectGoogleApi() {
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
+    })
+}
+
+export function getGeocode() {
+    const API_KEY = 'AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y';
+    var prmRes = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`);
+    return prmRes.then(res => {
+        return res.data
     })
 }
 

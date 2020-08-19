@@ -1,7 +1,8 @@
 console.log('Main!');
 
 import { locService } from './services/loc.service.js'
-import { mapService } from './services/map.service.js'
+import { mapService, getGeocode } from './services/map.service.js'
+
 
 
 locService.getLocs()
@@ -23,10 +24,15 @@ window.onload = () => {
         .catch(err => {
             console.log('Cannot get user-position', err);
         })
-    }
-    
-    document.querySelector('.btn').addEventListener('click', (ev) => {
-        console.log('Aha!', ev.target);
-        // mapService.panTo(29.55805,34.94821)
-        mapService.panTo(35.6895, 139.6917);
+}
+
+document.querySelector('.btn').addEventListener('click', (ev) => {
+    console.log('Aha!', ev.target);
+    // mapService.panTo(29.55805,34.94821)
+    mapService.panTo(35.6895, 139.6917);
+})
+
+document.querySelector('.search-place').addEventListener('click',(ev)=>{
+    mapService.getGeocode()
+        .then(res=> console.log(res))
 })
