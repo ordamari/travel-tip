@@ -50,7 +50,6 @@ function createLocation(lat,lng,createAte){
 }
 
 
-
 export function getLocations(){
     return gLocations;
 }
@@ -67,10 +66,7 @@ function addMarker(loc) {
 
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
-<<<<<<< HEAD
     console.log("panTo -> laLatLng", laLatLng) 
-=======
->>>>>>> a5fc6d8211b49e65e8c9c667d24bafa01695c958
     map.panTo(laLatLng);
 }
 
