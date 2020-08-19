@@ -52,7 +52,6 @@ function createLocation(lat,lng,createAte){
 }
 
 
-
 export function getLocations(){
     return gLocations;
 }

@@ -1,16 +1,19 @@
-import { storageService } from './storage-service.js'
+import {storage} from './storage-service.js'
 
 export const locService = {
     getId: getId,
     getName: getName,
     getLocs: getLocs,
     getPosition: getPosition,
-    getAt: getAt
+    getAt: getAt,
 }
+
 var locs = [{ lat: 11.22, lng: 22.11 }]
 
 function getLocs() {
+    var savedLoc = storage.loadFromStorage('locations');
     return new Promise((resolve, reject) => {
+        if(savedLoc !== null) resolve (savedLoc); 
         setTimeout(() => {
             resolve(locs);
         }, 2000)
