@@ -1,11 +1,11 @@
 import {storage} from './storage-service.js'
 
 export const locService = {
-    getId: getId,
-    getName: getName,
-    getLocs: getLocs,
-    getPosition: getPosition,
-    getAt: getAt,
+    getId,
+    getName,
+    getLocs,
+    getPosition,
+    getAt,
 }
 
 var locs = [{ lat: 11.22, lng: 22.11 }]

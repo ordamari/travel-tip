@@ -28,16 +28,19 @@ window.onload = () => {
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
     // mapService.panTo(29.55805,34.94821)
-    mapService.panTo(35.6895, 139.6917);
+    // mapService.panTo(35.6895, 139.6917);
+    mapService.getPosition();
 })
 
 document.querySelector('.search-place').addEventListener('click',(ev)=>{
     let place=document.querySelector('.place').value;
     mapService.getGeocode(place)
     .then(res=>{
-        console.log("place", place)
+            document.querySelector('.address').innerHTML=res.results[0].formatted_address;
             let lat=res.results[0].geometry.location.lat
             let lng=res.results[0].geometry.location.lng
             mapService.panTo(lat,lng);
+            mapService.addMarker({lat,lng})
+            mapService.createLocation(lat,lng,Date.now())
         });
 })

@@ -37,6 +37,3 @@ function removeLocationByIdx(locationIdx){
     renderLocations();
 }
 
-export function addClickEvents(){
-    document.querySelector('.search-place').addEventListener('click',onGetPlace)
-}
