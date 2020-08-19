@@ -4,7 +4,8 @@ export const mapService = {
     addMarker,
     panTo,
     getLocations,
-    getGeocode
+    getGeocode,
+    panTo
 }
 
 var gLocations=[];
@@ -66,8 +67,9 @@ function addMarker(loc) {
     return marker;
 }
 
-function panTo(lat, lng) {
+export function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
+    console.log("panTo -> laLatLng", laLatLng) 
     map.panTo(laLatLng);
 }
 
@@ -86,13 +88,21 @@ function _connectGoogleApi() {
     })
 }
 
-export function getGeocode() {
+export function getGeocode(place) {
     const API_KEY = 'AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y';
-    var prmRes = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${API_KEY}`);
+    var prmRes = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${place}&key=${API_KEY}`);
     return prmRes.then(res => {
         return res.data
     })
 }
+
+// export function getGeocode() {
+//     const API_KEY = 'AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y';
+//     var prmRes = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=${API_KEY}`);
+//     return prmRes.then(res => {
+//         return res.data
+//     })
+// }
 
 
 

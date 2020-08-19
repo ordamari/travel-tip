@@ -18,7 +18,6 @@ window.onload = () => {
 
     locService.getPosition()
         .then(pos => {
-
             console.log('User position is:', pos.coords);
         })
         .catch(err => {
@@ -33,6 +32,12 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 })
 
 document.querySelector('.search-place').addEventListener('click',(ev)=>{
-    mapService.getGeocode()
-        .then(res=> console.log(res))
+    let place=document.querySelector('.place').value;
+    mapService.getGeocode(place)
+    .then(res=>{
+        console.log("place", place)
+            let lat=res.results[0].geometry.location.lat
+            let lng=res.results[0].geometry.location.lng
+            mapService.panTo(lat,lng);
+        });
 })
