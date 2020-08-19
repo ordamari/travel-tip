@@ -1,3 +1,5 @@
+import { storage } from './storage-service.js'
+import { locService } from './loc.service.js'
 
 export const mapService = {
     initMap,
@@ -11,7 +13,7 @@ export const mapService = {
     getPosition
 }
 
-var gLocations=[];
+var gLocations = (storage.loadFromStorage('locations')) ? storage.loadFromStorage('locations') : [];
 
 var map
 
@@ -26,7 +28,7 @@ export function initMap(lat = 29.55805, lng = 34.94821) {
             })
 
             var infoWindow = new google.maps.InfoWindow(
-                { content: 'Click the map to get Lat/Lng!', position: {lat,lng} });
+                { content: 'Click the map to get Lat/Lng!', position: { lat, lng } });
             infoWindow.open(map);
 
             map.addListener('click', function (mapsMouseEvent) {
@@ -35,27 +37,32 @@ export function initMap(lat = 29.55805, lng = 34.94821) {
                 infoWindow.close();
 
                 // Create a new InfoWindow.
-                let timestemp= Date.now();
-                createLocation(lat,lng,timestemp);
+                let timestemp = Date.now();
+                createLocation(lat, lng, timestemp);
                 console.log(gLocations);
                 infoWindow = new google.maps.InfoWindow({ position: mapsMouseEvent.latLng });
                 infoWindow.setContent(mapsMouseEvent.latLng.toString());
                 infoWindow.open(map);
+
             });
         })
 }
 
-function createLocation(lat,lng,createAte){
-    var location={
+function createLocation(lat, lng, createAte) {
+    var location = {
         lat,
         lng,
-        createAte
+        createAte,
+        id: makeId()
     }
     gLocations.push(location);
+    storage.loadFromStorage('locations');
 }
 
 
-export function getLocations(){
+
+
+function getLocations() {
     return gLocations;
 }
 
@@ -69,9 +76,9 @@ function addMarker(loc) {
     return marker;
 }
 
-export function panTo(lat, lng) {
+function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
-    console.log("panTo -> laLatLng", laLatLng) 
+    console.log("panTo -> laLatLng", laLatLng)
     map.panTo(laLatLng);
 }
 
@@ -90,7 +97,7 @@ function _connectGoogleApi() {
     })
 }
 
-export function getGeocode(place) {
+function getGeocode(place) {
     const API_KEY = 'AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y';
     var prmRes = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${place}&key=${API_KEY}`);
     return prmRes.then(res => {
@@ -111,10 +118,10 @@ function showLocation(position) {
     console.log("showLocation -> position", position)
     // document.getElementById("latitude").innerHTML = position.coords.latitude;
     // document.getElementById("longitude").innerHTML = position.coords.longitude;
-    let lat=position.coords.latitude;
-    let lng=position.coords.longitude;
-    panTo(lat,lng)
-    addMarker({lat,lng})
+    let lat = position.coords.latitude;
+    let lng = position.coords.longitude;
+    panTo(lat, lng)
+    addMarker({ lat, lng })
     // initMap(position.coords.latitude, position.coords.longitude);
 }
 
@@ -137,6 +144,14 @@ function handleLocationError(error) {
     }
 }
 
+function makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
+}
 
 // export function getGeocode() {
 //     const API_KEY = 'AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y';

@@ -1,5 +1,7 @@
 import {storage} from './storage-service.js'
 
+// import{mapService} from './map.service.js'
+
 export const locService = {
     getId,
     getName,
@@ -29,7 +31,7 @@ function getPosition() {
 }
 
 function getId() {
-    return axios.get('http://www.filltext.com/?rows=10&id={index}&pretty=true')
+    return axios.get('http://www.filltext.com/?rows=1&id={index}&pretty=true')
         .then(res => res.data)
 }
 
@@ -42,3 +44,5 @@ function getName(lat, lang) {
 function getAt(Time){
 return Time;
 }
+
+// https://maps.googleapis.com/maps/api/geocode/json?latlng=31.873433600000002,34.8094464&location_type=ROOFTOP&result_type=street_address&key=AIzaSyB0GFpf1xOP_iLzHNeqn5GFUugk38cbc6Y

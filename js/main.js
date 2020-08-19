@@ -1,8 +1,8 @@
 console.log('Main!');
 
 import { locService } from './services/loc.service.js'
-import { mapService, getGeocode } from './services/map.service.js'
-
+import { mapService } from './services/map.service.js'
+import {renderTable } from './map-controller.js'
 
 
 locService.getLocs()
@@ -23,6 +23,7 @@ window.onload = () => {
         .catch(err => {
             console.log('Cannot get user-position', err);
         })
+        renderTable();
 }
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
@@ -42,5 +43,6 @@ document.querySelector('.search-place').addEventListener('click',(ev)=>{
             mapService.panTo(lat,lng);
             mapService.addMarker({lat,lng})
             mapService.createLocation(lat,lng,Date.now())
+            renderTable()
         });
 })
